@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- 從www.getbootstrap.com 拷貝來的 -->
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	
+	<title>儲存</title>
+</head>
+<body>
+	<div class="container">
+		<h3>儲存資料</h3>
+		<hr>
+		<p class="h4 mb-4">儲存</p>
+		<form action=# th:action="@{/product/save}"
+						th:object="${theProduct}" method="POST" enctype="multipart/form-data">
+			<!-- Add hidden form field to handle update -->
+			<input type="hidden" th:field="*{id}"/>
+			
+			<p>品名: <input type="text" th:field="*{name}" class="form-control mb-4 col-4" placeholder="品名" style="display: inline;" >				
+			<p>價格: <input type="text" th:field="*{price}" class="form-control mb-4 col-4" placeholder="價格" style="display: inline;" >
+			<p>庫存: <input type="text" th:field="*{inventory}" class="form-control mb-4 col-4" placeholder="庫存" style="display: inline;" >
+			<p>描述: <input type="text" th:field="*{description}" class="form-control mb-4 col-4" placeholder="描述" style="display: inline;" >
+			<p>檔案: <input type="file" name="imgFile" class="form-control mb-4 col-4" placeholder="檔案" style="display: inline;" >
+			<button type="submit" class="btn btn-info col-2">儲存</button>
+		</form>
+		
+		<hr>
+		<a th:href="@{/product/list}" class="btn btn-primary btn-sm mb-3">回上頁</a>
+	</div>
+</body>
+</html>

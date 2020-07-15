@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 從www.getbootstrap.com 拷貝來的 -->
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<title>商品清單</title>
+</head>
+<body>
+	<div class="container">
+		<h3>商品清單</h3>
+		<hr>
+		<!-- Add a button -->
+		<a th:href="@{/product/showFormForAdd}" class="btn btn-primary btn-sm mb-3">
+			新增
+		</a>
+		<table class="table table-bordered table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>品名</th>
+					<th>價格</th>
+					<th>庫存</th>
+					<th>描述</th>
+					<th>圖檔</th>
+					<th>刪修</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="theProduct:${products}">
+					<td th:text="${theProduct.name}"/>
+					<td th:text="${theProduct.price}"/>
+					<td th:text="${theProduct.inventory}"/>
+					<td th:text="${theProduct.description}"/>
+					<td><img th:src="${theProduct.imgPath}" alt="圖片" style="width: 20%;height:auto;"/></td>
+					<!-- Update -->
+					<td>
+						<a th:href="@{/product/showFormForUpdate(productId=${theProduct.id})}"
+								class="btn btn-info btn-sm">
+							修改
+						</a>
+					<!-- Delete -->
+						<a th:href="@{/product/delete(productId=${theProduct.id})}"
+								class="btn btn-info btn-sm"
+								onclick="if(!(confirm('確定刪除?'))) return false;">
+							刪除
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<hr>
+		<a th:href="@{/}" class="btn btn-primary btn-sm mb-3">返回</a>
+	</div>
+</body>
+
+</html>

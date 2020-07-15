@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- 從www.getbootstrap.com 拷貝來的 -->
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	
+	<title>儲存</title>
+</head>
+<body>
+	<div class="container">
+		<h3>儲存資料</h3>
+		<hr>
+		<p class="h4 mb-4">儲存</p>
+		<form action=# th:action="@{/user/save}"
+						th:object="${theUser}" method="POST">
+			<!-- Add hidden form field to handle update -->
+			<input type="hidden" th:field="*{id}"/>
+			
+			姓名 <input type="text" th:field="*{name}" class="form-control mb-4 col-4" placeholder="姓名">				
+			Email <input type="text" th:field="*{email}" class="form-control mb-4 col-4" placeholder="Email">
+			密碼 <input type="text" th:field="*{password}" class="form-control mb-4 col-4" placeholder="密碼">
+			<select th:if="${session.currUser}!=null AND ${session.currUser.isAdmin()}==true" th:field="*{authority}"  class="form-control mb-4 col-4">
+			    <option th:value="nomal" th:text="一般會員"></option>
+			    <option th:value="admin" th:text="管理者"></option>
+			</select>
+
+			<button type="submit" class="btn btn-info col-2">儲存</button>
+		</form>
+		
+		<hr>
+		<a th:href="@{/user/list}">回上頁</a>
+	</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 從www.getbootstrap.com 拷貝來的 -->
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<title>使用者清單</title>
+</head>
+<body>
+	<div class="container">
+		<h3>使用者清單</h3>
+		<hr>
+		<!-- Add a button -->
+		<a th:href="@{/user/showFormForAdd}" class="btn btn-primary btn-sm mb-3">
+			新增
+		</a>
+		<table class="table table-bordered table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>姓名</th>
+					<th>Email</th>
+					<th>刪修</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="theUser:${users}" th:if="${session.currUser.isAdmin()}or${theUser.id.equals(session.currUser.id)}">
+					<td th:text="${theUser.name}"/>
+					<td th:text="${theUser.email}"/>
+					<!-- Update -->
+					<td>
+						<a th:href="@{/user/showFormForUpdate(userId=${theUser.id})}"
+								class="btn btn-info btn-sm">
+							修改
+						</a>
+					<!-- Delete -->
+						<a th:href="@{/user/delete(userId=${theUser.id})}"
+								class="btn btn-info btn-sm"
+								onclick="if(!(confirm('確定刪除?'))) return false;">
+							刪除
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<hr>
+		<a th:href="@{/}" class="btn btn-primary btn-sm mb-3">返回</a>
+	</div>
+</body>
+
+</html>
